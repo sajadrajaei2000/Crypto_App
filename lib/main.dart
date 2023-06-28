@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:project3/ui/ui_helper/ThemeSwitcher.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -24,7 +25,11 @@ class _MyMaterialAppState extends State<MyMaterialApp> {
       home: Directionality(
         textDirection: TextDirection.ltr,
         child: Scaffold(
-          appBar: AppBar(),
+          appBar: AppBar(
+            actions: const [ThemeSwitcher()],
+            title: Text('ExchangeBS'),
+            centerTitle: true,
+          ),
           body: Container(),
         ),
       ),
