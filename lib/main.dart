@@ -3,6 +3,8 @@ import 'package:flutter/services.dart';
 import 'package:project3/ui/providers/ThemeProvider.dart';
 import 'package:project3/ui/ui_helper/ThemeSwitcher.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -28,6 +30,17 @@ class _MyMaterialAppState extends State<MyMaterialApp> {
   Widget build(BuildContext context) {
     return Consumer<ThemeProvider>(builder: (context, themeProvider, child) {
       return MaterialApp(
+        locale: const Locale('en'),
+        localizationsDelegates: const [
+          AppLocalizations.delegate,
+          GlobalMaterialLocalizations.delegate,
+          GlobalWidgetsLocalizations.delegate,
+          GlobalCupertinoLocalizations.delegate,
+        ],
+        supportedLocales: const [
+          Locale('en'), // English
+          Locale('fa'), // Spanish
+        ],
         themeMode: themeProvider.themeMode,
         theme: MyThemes.lightTheme,
         darkTheme: MyThemes.darkTheme,
@@ -37,7 +50,11 @@ class _MyMaterialAppState extends State<MyMaterialApp> {
           child: Scaffold(
             appBar: AppBar(
               actions: const [ThemeSwitcher()],
-              title: Text('ExchangeBS'),
+              title: Builder(
+                builder: (context) {
+                  return Text(AppLocalizations.of(context)!.helloWorld);
+                },
+              ),
               centerTitle: true,
             ),
             body: Container(),
