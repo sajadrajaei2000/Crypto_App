@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:project3/ui/MainWrapper.dart';
 import 'package:project3/ui/providers/ThemeProvider.dart';
 import 'package:project3/ui/ui_helper/ThemeSwitcher.dart';
 import 'package:provider/provider.dart';
@@ -57,7 +58,7 @@ class _MyMaterialAppState extends State<MyMaterialApp> {
               ),
               centerTitle: true,
             ),
-            body: Container(),
+            body: const MainWrapper(),
           ),
         ),
       );
