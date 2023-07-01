@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:project3/ui/MainWrapper.dart';
 import 'package:project3/ui/providers/ThemeProvider.dart';
-import 'package:project3/ui/ui_helper/ThemeSwitcher.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -46,19 +45,10 @@ class _MyMaterialAppState extends State<MyMaterialApp> {
         theme: MyThemes.lightTheme,
         darkTheme: MyThemes.darkTheme,
         debugShowCheckedModeBanner: false,
-        home: Directionality(
+        home: const Directionality(
           textDirection: TextDirection.ltr,
           child: Scaffold(
-            appBar: AppBar(
-              actions: const [ThemeSwitcher()],
-              title: Builder(
-                builder: (context) {
-                  return Text(AppLocalizations.of(context)!.helloWorld);
-                },
-              ),
-              centerTitle: true,
-            ),
-            body: const MainWrapper(),
+            body: MainWrapper(),
           ),
         ),
       );

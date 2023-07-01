@@ -1,6 +1,6 @@
 {
-    "helloWorld": "Hello World!",
-    "@helloWorld": {
+    "firstPage": "First Page!",
+    "@firstPage": {
       "description": "The conventional newborn programmer greeting"
     }
  }
