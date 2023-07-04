@@ -1,11 +1,14 @@
-// ignore_for_file: prefer_const_constructors
+// ignore_for_file: prefer_const_constructors, must_call_super
 
 import 'package:flutter/material.dart';
+import 'package:project3/ui/providers/CryptoDataProvider.dart';
 import 'package:project3/ui/ui_helper/ThemeSwitcher.dart';
+import 'package:provider/provider.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import 'package:project3/ui/ui_helper/HomePageView.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:marquee/marquee.dart';
+import 'package:project3/network/ResponseModel.dart';
 
 class Homepage extends StatefulWidget {
   const Homepage({super.key});
@@ -18,6 +21,14 @@ class _HomepageState extends State<Homepage> {
   final PageController _pageViewController = PageController(initialPage: 0);
   List<String> _choiceChips = ['Top MarketCaps', 'Top Gainers', 'Top Losers'];
   var defaultChoiceIndex = 0;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    final cryptoProvider =
+        Provider.of<CryptoDataProvider>(context, listen: false);
+    cryptoProvider.getTopMarketCapData();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -128,7 +139,20 @@ class _HomepageState extends State<Homepage> {
                     )
                   ],
                 ),
-              )
+              ),
+              Consumer<CryptoDataProvider>(
+                  builder: (context, cryptoDataProvider, child) {
+                switch (cryptoDataProvider.state.status) {
+                  case Status.LOADING:
+                    return Text(cryptoDataProvider.state.massege);
+                  case Status.COMPLETED:
+                    return Text('done');
+                  case Status.ERROR:
+                    return Text(cryptoDataProvider.state.massege);
+                  default:
+                    return Container();
+                }
+              })
             ],
           ),
         ),
