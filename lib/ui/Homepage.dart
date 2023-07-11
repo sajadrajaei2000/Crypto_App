@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_const_constructors, must_call_super
 
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:project3/models/CryptoModel/CryptoData.dart';
 import 'package:project3/ui/providers/CryptoDataProvider.dart';
 import 'package:project3/ui/ui_helper/ThemeSwitcher.dart';
@@ -12,6 +13,8 @@ import 'package:marquee/marquee.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:project3/network/ResponseModel.dart';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:project3/helpers/decimalRounder.dart';
 
 class Homepage extends StatefulWidget {
   const Homepage({super.key});
@@ -276,6 +279,20 @@ class _HomepageState extends State<Homepage> {
                                 .dataFuture.data!.cryptoCurrencyList;
                             var number = index + 1;
                             var tokenId = model![index].id;
+                            MaterialColor filterColor =
+                                DecimalRounder.setColorFilter(
+                                    model[index].quotes![0].percentChange24h);
+                            var finalPrice = DecimalRounder.removePriceDecimals(
+                                model[index].quotes![0].price);
+                            Icon percentIcon =
+                                DecimalRounder.setPercentChangesIcon(
+                                    model[index].quotes![0].percentChange24h);
+                            var percentChange =
+                                DecimalRounder.removePercentDecimals(
+                                    model[index].quotes![0].percentChange24h);
+                            Color percentColor =
+                                DecimalRounder.setPercentChangesColor(
+                                    model[index].quotes![0].percentChange24h);
                             return SizedBox(
                               height: height * 0.075,
                               child: Row(
@@ -320,7 +337,39 @@ class _HomepageState extends State<Homepage> {
                                             style: textTheme.labelSmall,
                                           )
                                         ],
-                                      ))
+                                      )),
+                                  Flexible(
+                                      fit: FlexFit.tight,
+                                      child: ColorFiltered(
+                                        colorFilter: ColorFilter.mode(
+                                            filterColor, BlendMode.srcATop),
+                                        child: SvgPicture.network(
+                                            'https://s3.coinmarketcap.com/generated/sparklines/web/1d/2781/$tokenId.svg'),
+                                      )),
+                                  Expanded(
+                                      child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    crossAxisAlignment: CrossAxisAlignment.end,
+                                    children: [
+                                      Text(
+                                        '\$$finalPrice',
+                                        style: textTheme.bodySmall,
+                                      ),
+                                      Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.end,
+                                        children: [
+                                          percentIcon,
+                                          Text(
+                                            '$percentChange%',
+                                            style: GoogleFonts.ubuntu(
+                                                color: percentColor,
+                                                fontSize: 13),
+                                          )
+                                        ],
+                                      )
+                                    ],
+                                  ))
                                 ],
                               ),
                             );
