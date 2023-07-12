@@ -41,6 +41,7 @@ class _HomepageState extends State<Homepage> {
     var height = MediaQuery.of(context).size.height;
     var primaryColor = Theme.of(context).primaryColor;
     TextTheme textTheme = Theme.of(context).textTheme;
+    final cryptoDataProvider = Provider.of<CryptoDataProvider>(context);
     return Scaffold(
       drawer: const Drawer(),
       appBar: AppBar(
@@ -90,7 +91,7 @@ class _HomepageState extends State<Homepage> {
                 width: double.infinity,
                 child: Marquee(
                   text: ' 📪 This is the place to show news!',
-                  style: textTheme.bodyLarge,
+                  style: textTheme.bodySmall,
                 ),
               ),
               Padding(
@@ -139,6 +140,15 @@ class _HomepageState extends State<Homepage> {
                             setState(() {
                               defaultChoiceIndex =
                                   value ? index : defaultChoiceIndex;
+                              switch (index) {
+                                case 0:
+                                  cryptoDataProvider.getTopMarketCapData();
+                                  break;
+                                case 1:
+                                  cryptoDataProvider.getTopGainersData();
+                                case 2:
+                                  cryptoDataProvider.getTopLosersData();
+                              }
                             });
                           },
                         );
