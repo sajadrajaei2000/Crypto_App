@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:project3/ui/MainWrapper.dart';
 import 'package:project3/ui/providers/CryptoDataProvider.dart';
+import 'package:project3/ui/providers/MarketViewProvider.dart';
 import 'package:project3/ui/providers/ThemeProvider.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -18,6 +19,9 @@ void main() {
     ),
     ChangeNotifierProvider(
       create: (context) => CryptoDataProvider(),
+    ),
+    ChangeNotifierProvider(
+      create: (context) => MarketViewProvider(),
     ),
   ], child: const MyMaterialApp()));
 }
