@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:project3/ui/MainWrapper.dart';
+import 'package:project3/ui/SignUpScreen.dart';
 import 'package:project3/ui/providers/CryptoDataProvider.dart';
 import 'package:project3/ui/providers/MarketViewProvider.dart';
 import 'package:project3/ui/providers/ThemeProvider.dart';
@@ -55,9 +56,9 @@ class _MyMaterialAppState extends State<MyMaterialApp> {
         debugShowCheckedModeBanner: false,
         home: const Directionality(
           textDirection: TextDirection.ltr,
-          child: Scaffold(
-            body: MainWrapper(),
-          ),
+          child: Scaffold(body: SignUpScreen()
+              //MainWrapper(),
+              ),
         ),
       );
     });
