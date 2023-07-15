@@ -1,6 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:lottie/lottie.dart';
+import 'package:project3/ui/providers/UserDataProvider.dart';
+import 'package:provider/provider.dart';
+
+import '../network/ResponseModel.dart';
+import 'MainWrapper.dart';
 
 class SignUpScreen extends StatefulWidget {
   const SignUpScreen({super.key});
@@ -15,6 +20,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
   TextEditingController nameController = TextEditingController();
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
+  //UserDataProvider? userProvider;
 
   @override
   void dispose() {
@@ -27,6 +33,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
   @override
   Widget build(BuildContext context) {
     var height = MediaQuery.of(context).size.height;
+
     return Scaffold(
       resizeToAvoidBottomInset: false,
       body: SingleChildScrollView(
@@ -149,7 +156,51 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       SizedBox(
                         height: height * 0.02,
                       ),
-                      singUp(),
+                      Consumer<UserDataProvider>(
+                          builder: (context, userDataProvider, child) {
+                        switch (userDataProvider.registerStatus?.status) {
+                          case Status.LOADING:
+                            return const CircularProgressIndicator();
+                          case Status.COMPLETED:
+                            // savedLogin(userDataProvider.registerStatus?.data);
+                            WidgetsBinding.instance.addPostFrameCallback(
+                                (timeStamp) => Navigator.pushReplacement(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) =>
+                                            const MainWrapper())));
+                            return signupBtn();
+                          case Status.ERROR:
+                            return Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                signupBtn(),
+                                const SizedBox(
+                                  height: 5,
+                                ),
+                                Row(
+                                  children: [
+                                    const Icon(
+                                      Icons.error,
+                                      color: Colors.redAccent,
+                                    ),
+                                    const SizedBox(
+                                      width: 6,
+                                    ),
+                                    Text(
+                                      userDataProvider.registerStatus!.massege,
+                                      style: GoogleFonts.ubuntu(
+                                          color: Colors.redAccent,
+                                          fontSize: 15),
+                                    ),
+                                  ],
+                                ),
+                              ],
+                            );
+                          default:
+                            return signupBtn();
+                        }
+                      }),
                     ],
                   )),
             ),
@@ -159,7 +210,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
     );
   }
 
-  Widget singUp() {
+  Widget signupBtn() {
+    final userProvider = Provider.of<UserDataProvider>(context);
     return Padding(
       padding: const EdgeInsets.only(left: 10, right: 10),
       child: SizedBox(
@@ -172,7 +224,10 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     borderRadius: BorderRadius.circular(15)),
                 backgroundColor: Colors.blue),
             onPressed: () {
-              if (_keyForm.currentState!.validate()) {}
+              if (_keyForm.currentState!.validate()) {
+                userProvider.callRegisterApi(nameController.text,
+                    emailController.text, passwordController.text);
+              }
             },
             child: Text(
               'Sign Up',
