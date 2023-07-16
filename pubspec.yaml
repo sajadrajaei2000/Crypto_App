@@ -78,6 +78,7 @@ flutter:
   - images/a3.png
   - images/a4.png
   - images/wave_loop.json
+  - images/bitcointouch.json
     
 
   # An image asset can refer to one or more resolution-specific "variants", see
