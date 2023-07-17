@@ -1,3 +1,6 @@
+// ignore_for_file: unused_import
+
+import 'dart:ffi';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:project3/ui/MainWrapper.dart';
@@ -9,6 +12,7 @@ import 'package:project3/ui/providers/UserDataProvider.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -58,9 +62,28 @@ class _MyMaterialAppState extends State<MyMaterialApp> {
         theme: MyThemes.lightTheme,
         darkTheme: MyThemes.darkTheme,
         debugShowCheckedModeBanner: false,
-        home: const Directionality(
+        home: Directionality(
           textDirection: TextDirection.ltr,
-          child: Scaffold(body: SignUpScreen()
+          child: Scaffold(
+              body: FutureBuilder<SharedPreferences>(
+                  future: SharedPreferences.getInstance(),
+                  builder: (context, snapshot) {
+                    if (snapshot.hasData) {
+                      SharedPreferences sharedPreferences = snapshot.data!;
+                      var loggInState =
+                          sharedPreferences.getBool('LoggedIn') ?? false;
+                      if (loggInState == true) {
+                        return const MainWrapper();
+                      } else {
+                        return const SignUpScreen();
+                      }
+                    } else {
+                      return const Center(
+                        child: CircularProgressIndicator(),
+                      );
+                    }
+                  })
+              //SignUpScreen()
               //MainWrapper(),
               ),
         ),

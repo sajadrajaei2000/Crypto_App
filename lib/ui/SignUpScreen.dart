@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:lottie/lottie.dart';
+import 'package:project3/models/UserModel.dart';
 import 'package:project3/ui/providers/UserDataProvider.dart';
 import 'package:provider/provider.dart';
-
+import 'package:shared_preferences/shared_preferences.dart';
 import '../network/ResponseModel.dart';
 import 'MainWrapper.dart';
 
@@ -197,7 +198,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                   case Status.LOADING:
                                     return const CircularProgressIndicator();
                                   case Status.COMPLETED:
-                                    // savedLogin(userDataProvider.registerStatus?.data);
+                                    savedLogin(
+                                        userDataProvider.registerStatus?.data);
                                     WidgetsBinding.instance
                                         .addPostFrameCallback((timeStamp) =>
                                             Navigator.pushReplacement(
@@ -406,7 +408,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                             case Status.LOADING:
                               return const CircularProgressIndicator();
                             case Status.COMPLETED:
-                              // savedLogin(userDataProvider.registerStatus?.data);
+                              savedLogin(userDataProvider.registerStatus?.data);
                               WidgetsBinding.instance.addPostFrameCallback(
                                   (timeStamp) => Navigator.pushReplacement(
                                       context,
@@ -516,5 +518,11 @@ class _SignUpScreenState extends State<SignUpScreen> {
             )),
       ),
     );
+  }
+
+  void savedLogin(UserModel model) async {
+    var prefs = await SharedPreferences.getInstance();
+    prefs.setBool('LoggedIn', true);
+    prefs.setString('UserToken', model.token!);
   }
 }
