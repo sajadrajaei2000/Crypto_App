@@ -2,19 +2,19 @@
 
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:project3/models/CryptoModel/CryptoData.dart';
-import 'package:project3/ui/providers/CryptoDataProvider.dart';
-import 'package:project3/ui/ui_helper/ThemeSwitcher.dart';
+import 'package:project3/data/models/CryptoModel/CryptoData.dart';
+import 'package:project3/logic/providers/CryptoDataProvider.dart';
+import 'package:project3/presentation/ui/ui_helper/ThemeSwitcher.dart';
 import 'package:provider/provider.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
-import 'package:project3/ui/ui_helper/HomePageView.dart';
+import 'package:project3/presentation/ui/ui_helper/HomePageView.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:marquee/marquee.dart';
 import 'package:shimmer/shimmer.dart';
-import 'package:project3/network/ResponseModel.dart';
+import 'package:project3/data/data_source/ResponseModel.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:project3/helpers/decimalRounder.dart';
+import 'package:project3/presentation/helpers/decimalRounder.dart';
 
 class Homepage extends StatefulWidget {
   const Homepage({super.key});

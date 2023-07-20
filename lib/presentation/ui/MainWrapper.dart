@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:project3/ui/Homepage.dart';
-import 'package:project3/ui/MarketViewPage.dart';
-import 'package:project3/ui/ProfilePage.dart';
-import 'package:project3/ui/WatchListPage.dart';
-import 'package:project3/ui/ui_helper/BottomNav.dart';
+import 'package:project3/presentation/ui/Homepage.dart';
+import 'package:project3/presentation/ui/MarketViewPage.dart';
+import 'package:project3/presentation/ui/ProfilePage.dart';
+import 'package:project3/presentation/ui/WatchListPage.dart';
+import 'package:project3/presentation/ui/ui_helper/BottomNav.dart';
 
 class MainWrapper extends StatefulWidget {
   const MainWrapper({super.key});

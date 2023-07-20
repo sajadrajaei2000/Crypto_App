@@ -1,9 +1,9 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 
-import '../../models/CryptoModel/AllCryptoModel.dart';
-import '../../network/ApiSupplier.dart';
-import '../../network/ResponseModel.dart';
+import '../../data/models/CryptoModel/AllCryptoModel.dart';
+import '../../data/data_source/ApiSupplier.dart';
+import '../../data/data_source/ResponseModel.dart';
 
 class MarketViewProvider extends ChangeNotifier {
   late AllCryptoModel dataFuture;

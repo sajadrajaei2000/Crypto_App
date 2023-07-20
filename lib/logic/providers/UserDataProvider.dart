@@ -2,9 +2,9 @@
 
 import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:project3/models/UserModel.dart';
-import 'package:project3/network/ApiSupplier.dart';
-import 'package:project3/network/ResponseModel.dart';
+import 'package:project3/data/models/UserModel.dart';
+import 'package:project3/data/data_source/ApiSupplier.dart';
+import 'package:project3/data/data_source/ResponseModel.dart';
 
 class UserDataProvider extends ChangeNotifier {
   ApiSupplier apiProvider = ApiSupplier();

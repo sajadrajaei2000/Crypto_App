@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:project3/ui/providers/ThemeProvider.dart';
+import 'package:project3/logic/providers/ThemeProvider.dart';
 import 'package:provider/provider.dart';
 
 class ThemeSwitcher extends StatelessWidget {

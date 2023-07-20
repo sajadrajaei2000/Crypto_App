@@ -4,13 +4,13 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:project3/ui/providers/MarketViewProvider.dart';
-import 'package:project3/ui/ui_helper/ShimmerMarketWidget.dart';
+import 'package:project3/logic/providers/MarketViewProvider.dart';
+import 'package:project3/presentation/ui/ui_helper/ShimmerMarketWidget.dart';
 import 'package:provider/provider.dart';
 
 import '../helpers/decimalRounder.dart';
-import '../models/CryptoModel/CryptoData.dart';
-import '../network/ResponseModel.dart';
+import '../../data/models/CryptoModel/CryptoData.dart';
+import '../../data/data_source/ResponseModel.dart';
 
 class MarketViewPage extends StatefulWidget {
   const MarketViewPage({super.key});
