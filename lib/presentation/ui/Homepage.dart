@@ -25,23 +25,18 @@ class Homepage extends StatefulWidget {
 
 class _HomepageState extends State<Homepage> {
   final PageController _pageViewController = PageController(initialPage: 0);
-  List<String> _choiceChips = ['Top MarketCaps', 'Top Gainers', 'Top Losers'];
-  var defaultChoiceIndex = 0;
-
-  @override
-  void initState() {
-    // TODO: implement initState
-    final cryptoProvider =
-        Provider.of<CryptoDataProvider>(context, listen: false);
-    cryptoProvider.getTopMarketCapData();
-  }
+  final List<String> _choiceChips = [
+    'Top MarketCaps',
+    'Top Gainers',
+    'Top Losers'
+  ];
 
   @override
   Widget build(BuildContext context) {
     var height = MediaQuery.of(context).size.height;
     var primaryColor = Theme.of(context).primaryColor;
     TextTheme textTheme = Theme.of(context).textTheme;
-    final cryptoDataProvider = Provider.of<CryptoDataProvider>(context);
+
     return Scaffold(
       drawer: const Drawer(),
       appBar: AppBar(
@@ -128,18 +123,21 @@ class _HomepageState extends State<Homepage> {
                 padding: const EdgeInsets.only(left: 5, right: 5, top: 5),
                 child: Row(
                   children: [
-                    Wrap(
-                      spacing: 8,
-                      children: List.generate(_choiceChips.length, (index) {
-                        return ChoiceChip(
-                          label: Text(_choiceChips[index],
-                              style: textTheme.titleSmall),
-                          selected: defaultChoiceIndex == index,
-                          selectedColor: Colors.blue,
-                          onSelected: (value) {
-                            setState(() {
-                              defaultChoiceIndex =
-                                  value ? index : defaultChoiceIndex;
+                    Consumer<CryptoDataProvider>(
+                        builder: (context, cryptoDataProvider, child) {
+                      return Wrap(
+                        spacing: 8,
+                        children: List.generate(_choiceChips.length, (index) {
+                          return ChoiceChip(
+                            label: Text(_choiceChips[index],
+                                style: textTheme.titleSmall),
+                            selected:
+                                cryptoDataProvider.defaultChoiceIndex == index,
+                            selectedColor: Colors.blue,
+                            onSelected: (value) {
+                              cryptoDataProvider.defaultChoiceIndex = value
+                                  ? index
+                                  : cryptoDataProvider.defaultChoiceIndex;
                               switch (index) {
                                 case 0:
                                   cryptoDataProvider.getTopMarketCapData();
@@ -149,11 +147,11 @@ class _HomepageState extends State<Homepage> {
                                 case 2:
                                   cryptoDataProvider.getTopLosersData();
                               }
-                            });
-                          },
-                        );
-                      }),
-                    )
+                            },
+                          );
+                        }),
+                      );
+                    })
                   ],
                 ),
               ),

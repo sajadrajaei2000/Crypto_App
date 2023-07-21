@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:project3/logic/providers/CryptoDataProvider.dart';
 import 'package:project3/presentation/ui/Homepage.dart';
 import 'package:project3/presentation/ui/MarketViewPage.dart';
 import 'package:project3/presentation/ui/ProfilePage.dart';
 import 'package:project3/presentation/ui/WatchListPage.dart';
 import 'package:project3/presentation/ui/ui_helper/BottomNav.dart';
+import 'package:provider/provider.dart';
 
 class MainWrapper extends StatefulWidget {
   const MainWrapper({super.key});
@@ -23,11 +25,13 @@ class _MainWrapperState extends State<MainWrapper> {
       bottomNavigationBar: BottomNav(controller: _myPage),
       body: PageView(
         controller: _myPage,
-        children: const [
-          Homepage(),
-          MarketViewPage(),
-          ProfilePage(),
-          WatchListPage()
+        children: [
+          ChangeNotifierProvider(
+              create: (context) => CryptoDataProvider(),
+              child: const Homepage()),
+          const MarketViewPage(),
+          const ProfilePage(),
+          const WatchListPage()
         ],
       ),
     );

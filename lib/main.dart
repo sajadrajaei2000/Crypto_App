@@ -23,9 +23,9 @@ void main() {
     ChangeNotifierProvider(
       create: (context) => ThemeProvider(),
     ),
-    ChangeNotifierProvider(
-      create: (context) => CryptoDataProvider(),
-    ),
+    // ChangeNotifierProvider(
+    //   create: (context) => CryptoDataProvider(),
+    // ),
     ChangeNotifierProvider(
       create: (context) => MarketViewProvider(),
     ),
